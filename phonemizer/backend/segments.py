@@ -20,7 +20,6 @@ import pkg_resources
 
 import segments
 from phonemizer.backend.base import BaseBackend
-from phonemizer.logger import get_logger
 
 
 class SegmentsBackend(BaseBackend):
@@ -30,7 +29,7 @@ class SegmentsBackend(BaseBackend):
     unknown morpheme.
 
     """
-    def __init__(self, language, logger=get_logger()):
+    def __init__(self, language, logger=logging.getLogger(__name__)):
         self.logger = logger
         self.logger.info(
             'initializing backend %s-%s', self.name(), self.version())

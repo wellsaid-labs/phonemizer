@@ -19,7 +19,7 @@ import tempfile
 import shlex
 import sys
 
-from phonemizer import main, backend, logger
+from phonemizer import main, backend
 
 
 def _test(input, expected_output, args=''):
@@ -67,21 +67,20 @@ def test_readme():
         with pytest.raises(SystemExit):
             _test(u'hello world', u'h@loU w3:ld ', '--sampa')
 
-    _test(u'hello world', u'hhaxlow werld', '-b festival --strip')
     _test(u'hello world', u'həloʊ wɜːld ', '-l en-us')
     _test(u'bonjour le monde', u'bɔ̃ʒuʁ lə- mɔ̃d ', '-l fr-fr')
     _test(u'bonjour le monde', u'b ɔ̃ ʒ u ʁ ;eword l ə- ;eword m ɔ̃ d ;eword ',
           '-l fr-fr -p " " -w ";eword "')
 
 
-@pytest.mark.skipif(
-    '2.1' in backend.FestivalBackend.version(),
-    reason='festival-2.1 gives different results than further versions '
-    'for syllable boundaries')
-def test_readme_festival_syll():
-    _test(u'hello world',
-          u'hh ax ;esyll l ow ;esyll ;eword w er l d ;esyll ;eword ',
-          u"-p ' ' -s ';esyll ' -w ';eword ' -b festival -l en-us")
+# @pytest.mark.skipif(
+#     '2.1' in backend.FestivalBackend.version(),
+#     reason='festival-2.1 gives different results than further versions '
+#     'for syllable boundaries')
+# def test_readme_festival_syll():
+#     _test(u'hello world',
+#           u'hh ax ;esyll l ow ;esyll ;eword w er l d ;esyll ;eword ',
+#           u"-p ' ' -s ';esyll ' -w ';eword ' -b festival -l en-us")
 
 
 def test_njobs():
@@ -110,8 +109,3 @@ def test_language_switch():
 
     _test("j'aime le football", "",
           '-l fr-fr -b espeak --language-switch remove-utterance')
-
-
-def test_logger():
-    with pytest.raises(RuntimeError):
-        logger.get_logger(verbosity=1)

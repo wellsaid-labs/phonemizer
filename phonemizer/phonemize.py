@@ -20,19 +20,18 @@ To use it in your own code, type:
 
 """
 
+import logging
 import sys
 
-from phonemizer.logger import get_logger
 from phonemizer.separator import default_separator
-from phonemizer.backend import (
-    EspeakBackend, FestivalBackend, SegmentsBackend)
+from phonemizer.backend import (EspeakBackend)
 
 
-def phonemize(text, language='en-us', backend='festival',
+def phonemize(text, language='en-us', backend='espeak',
               separator=default_separator, strip=False,
               with_stress=False, use_sampa=False,
               language_switch='keep-flags',
-              njobs=1, logger=get_logger()):
+              njobs=1, logger=logging.getLogger(__name__)):
     """Multilingual text to phonemes converter
 
     Return a phonemized version of an input `text`, given its
@@ -137,19 +136,12 @@ def phonemize(text, language='en-us', backend='festival',
 
     # instanciate the requested backend for the given language (raises
     # a RuntimeError if the language is not supported).
-    backends = {b.name(): b for b in (
-        EspeakBackend, FestivalBackend, SegmentsBackend)}
-
-    if backend == 'espeak':
-        phonemizer = backends[backend](
+    phonemizer = EspeakBackend(
             language,
             with_stress=with_stress,
             use_sampa=use_sampa,
             language_switch=language_switch,
             logger=logger)
-    else:
-        phonemizer = backends[backend](language, logger=logger)
 
     # phonemize the input text with the backend
-    return phonemizer.phonemize(
-        text, separator=separator, strip=strip, njobs=njobs)
+    return phonemizer.phonemize(text, separator=separator, strip=strip, njobs=njobs)

@@ -15,5 +15,5 @@
 """Multilingual text to phonemes converter"""
 
 from .espeak import EspeakBackend
-from .festival import FestivalBackend
+# from .festival import FestivalBackend
 from .segments import SegmentsBackend

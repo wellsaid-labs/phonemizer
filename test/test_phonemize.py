@@ -83,57 +83,57 @@ def test_espeak(njobs):
     assert out == '\n'.join(['wʌn tuː ', 'θɹiː ', 'foːɹ faɪv '])
 
 
-@pytest.mark.parametrize('njobs', [1, 2, 4])
-def test_festival(njobs):
-    text = ['one two', 'three', 'four five']
+# @pytest.mark.parametrize('njobs', [1, 2, 4])
+# def test_festival(njobs):
+#     text = ['one two', 'three', 'four five']
 
-    out = phonemize(
-        text, language='en-us', backend='festival',
-        strip=True, njobs=njobs)
-    assert out == ['wahn tuw', 'thriy', 'faor fayv']
+#     out = phonemize(
+#         text, language='en-us', backend='festival',
+#         strip=True, njobs=njobs)
+#     assert out == ['wahn tuw', 'thriy', 'faor fayv']
 
-    out = phonemize(
-        text, language='en-us', backend='festival',
-        strip=False, njobs=njobs)
-    assert out == ['wahn tuw ', 'thriy ', 'faor fayv ']
+#     out = phonemize(
+#         text, language='en-us', backend='festival',
+#         strip=False, njobs=njobs)
+#     assert out == ['wahn tuw ', 'thriy ', 'faor fayv ']
 
-    out = phonemize(
-        ' '.join(text), language='en-us', backend='festival',
-        strip=True, njobs=njobs)
-    assert out == ' '.join(['wahn tuw', 'thriy', 'faor fayv'])
+#     out = phonemize(
+#         ' '.join(text), language='en-us', backend='festival',
+#         strip=True, njobs=njobs)
+#     assert out == ' '.join(['wahn tuw', 'thriy', 'faor fayv'])
 
-    out = phonemize(
-        ' '.join(text), language='en-us', backend='festival',
-        strip=False, njobs=njobs)
-    assert out == ' '.join(['wahn tuw', 'thriy', 'faor fayv '])
+#     out = phonemize(
+#         ' '.join(text), language='en-us', backend='festival',
+#         strip=False, njobs=njobs)
+#     assert out == ' '.join(['wahn tuw', 'thriy', 'faor fayv '])
 
-    out = phonemize(
-        '\n'.join(text), language='en-us', backend='festival',
-        strip=True, njobs=njobs)
-    assert out == '\n'.join(['wahn tuw', 'thriy', 'faor fayv'])
+#     out = phonemize(
+#         '\n'.join(text), language='en-us', backend='festival',
+#         strip=True, njobs=njobs)
+#     assert out == '\n'.join(['wahn tuw', 'thriy', 'faor fayv'])
 
-    out = phonemize(
-        '\n'.join(text), language='en-us', backend='festival',
-        strip=False, njobs=njobs)
-    assert out == '\n'.join(['wahn tuw ', 'thriy ', 'faor fayv '])
+#     out = phonemize(
+#         '\n'.join(text), language='en-us', backend='festival',
+#         strip=False, njobs=njobs)
+#     assert out == '\n'.join(['wahn tuw ', 'thriy ', 'faor fayv '])
 
 
-def test_festival_bad():
-    # cannot use options valid for espeak only
-    text = ['one two', 'three', 'four five']
+# def test_festival_bad():
+#     # cannot use options valid for espeak only
+#     text = ['one two', 'three', 'four five']
 
-    with pytest.raises(RuntimeError):
-        phonemize(
-            text, language='en-us', backend='festival', use_sampa=True)
+#     with pytest.raises(RuntimeError):
+#         phonemize(
+#             text, language='en-us', backend='festival', use_sampa=True)
 
-    with pytest.raises(RuntimeError):
-        phonemize(
-            text, language='en-us', backend='festival', with_stress=True)
+#     with pytest.raises(RuntimeError):
+#         phonemize(
+#             text, language='en-us', backend='festival', with_stress=True)
 
-    with pytest.raises(RuntimeError):
-        phonemize(
-            text, language='en-us', backend='festival',
-            language_switch='remove-flags')
+#     with pytest.raises(RuntimeError):
+#         phonemize(
+#             text, language='en-us', backend='festival',
+#             language_switch='remove-flags')
 
 
 @pytest.mark.parametrize('njobs', [1, 2, 4])

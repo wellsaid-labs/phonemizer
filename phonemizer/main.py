@@ -14,13 +14,14 @@
 # You should have received a copy of the GNU General Public License
 # along with phonemizer. If not, see <http://www.gnu.org/licenses/>.
 """Command-line phonemizer tool, have a 'phonemizer --help' to get in"""
+import logging
 
 import argparse
 import codecs
 import pkg_resources
 import sys
 
-from phonemizer import phonemize, separator, version, logger
+from phonemizer import phonemize, separator, version
 from phonemizer.backend import (
     EspeakBackend, FestivalBackend, SegmentsBackend)
 
@@ -251,7 +252,7 @@ def main():
         verbosity = 'verbose'
     elif args.quiet:
         verbosity = 'quiet'
-    log = logger.get_logger(verbosity=verbosity)
+    log = logging.getLogger(__name__)
 
     # configure input as a readable stream
     streamin = args.input

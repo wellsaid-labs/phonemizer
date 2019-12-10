@@ -15,6 +15,7 @@
 """Espeak backend for the phonemizer"""
 
 import distutils.spawn
+import logging
 import os
 import re
 import shlex
@@ -22,7 +23,6 @@ import subprocess
 import tempfile
 
 from phonemizer.backend.base import BaseBackend
-from phonemizer.logger import get_logger
 
 
 # a regular expression to find language switching flags in espeak output,
@@ -38,7 +38,7 @@ class EspeakBackend(BaseBackend):
 
     def __init__(self, language, use_sampa=False,
                  language_switch='keep-flags', with_stress=False,
-                 logger=get_logger()):
+                 logger=logging.getLogger(__name__)):
         super(self.__class__, self).__init__(language, logger=logger)
 
         # adapt some command line option to the espeak version (for
