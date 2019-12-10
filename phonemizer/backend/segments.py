@@ -15,6 +15,7 @@
 """Segments backend for the phonemizer"""
 
 import codecs
+import logging
 import os
 import pkg_resources
 
