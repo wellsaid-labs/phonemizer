@@ -45,7 +45,7 @@ class EspeakBackend(BaseBackend):
         # phoneme separation and IPA output)
         version = self.version()
 
-        self.sep = '-p=_'
+        self.sep = '--sep=_'
         if version == '1.48.03' or int(version.split('.')[1]) <= 47:
             self.sep = ''  # pragma: nocover
 
@@ -157,15 +157,13 @@ class EspeakBackend(BaseBackend):
                     data.close()
 
                     # generate the espeak command to run
-                    print('Sending command to espeak....')
                     command = '{} -v{} {} -q -f {} {}'.format(
                         self.espeak_exe(), self.language, self.ipa,
                         data.name, self.sep)
 
                     if self.logger:
                         self.logger.debug('running %s', command)
-                    print('Results returned....')
-                    print(line)
+
                     line = subprocess.check_output(
                         shlex.split(command, posix=False)).decode('utf8')
                 finally:
