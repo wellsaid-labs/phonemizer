@@ -45,7 +45,7 @@ class EspeakBackend(BaseBackend):
         # phoneme separation and IPA output)
         version = self.version()
 
-        self.sep = '--sep=_'
+        self.sep = '-p=_'
         if version == '1.48.03' or int(version.split('.')[1]) <= 47:
             self.sep = ''  # pragma: nocover
 
