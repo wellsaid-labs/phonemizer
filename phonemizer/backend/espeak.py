@@ -37,9 +37,11 @@ class EspeakBackend(BaseBackend):
     espeak_version_re = r'.*: ([0-9]+\.[0-9]+\.[0-9]+)'
 
     def __init__(self, language, use_sampa=False,
-                 language_switch='keep-flags', with_stress=False,
+                 language_switch='remove-flags', with_stress=False,
                  logger=logging.getLogger(__name__)):
         super(self.__class__, self).__init__(language, logger=logger)
+
+        self.logger=logger
 
         # adapt some command line option to the espeak version (for
         # phoneme separation and IPA output)
